@@ -1,5 +1,16 @@
 # README - Projeto de Teste 
 
+## Nota do candidato
+
+Um ótimo teste para realizar a prática de algumas ferramentas front-end. Para realiza-lo, usei algumas bibliotecas como jquery e jquery-modal.
+
+Um ponto importantE, a API do thecicktaildb.com não tem um endpoint para trazer todos os drinks disponíveis, então, para criar a lista, foi feita uma função que executa simultaneamente com o carregamento do site e, no final, libera do botão de ver o catálogo de drinks.
+
+Para procurar o drink basta digitar na barra de pesquisa e selecioná-lo no menu dropdown, não precisa esperar o botão "browse drinks" carregar. Ele serve como um cardápio para listar os drinks disponíveis. Assim que carregar, sinta-se livre para usar.
+
+link do github pages: https://marcoalarcon.github.io/desenvolvedor-web-teste/
+
+
 ## Visão Geral
 
 Este projeto tem como objetivo avaliar sua proficiência no uso de tecnologias web, como HTML, CSS e JavaScript (ou jQuery), para criar uma interface web simples que interaja com a [thecocktaildb](https://www.thecocktaildb.com/). A funcionalidade principal da aplicação é permitir que os usuários insiram o nome da bebida e obtenham sua imagem juntamente com informações revelantes.
