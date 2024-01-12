@@ -17,22 +17,28 @@
     <h1>Drinks Auditar</h1>
     <div id="pesquisa">
         <i id="loading" class="fa-solid fa-spinner fa-2x fa-spin"></i>
-        <input type="text" id="buscarDrink" placeholder="Procure seu drink aqui">
+        <input type="text" id="buscarDrink" placeholder="Selecione seu drink aqui">
         <!-- <button id="teste" onclick="buscar()">Pesquisar</button> -->
-        <button id="btn-carta_drinks">Browse drinks</button>
+        <button id="btn-carta_drinks" disabled>Browse drinks <i id="loadingBtn" class="fa-solid fa-spinner fa-2x fa-spin"></i></button>
     </div>
 
     <div id="modal" class="modal">
         <div id="modal_conteudo">
-            <h2 id="modal_nome-drink">Nome do drink</h2>
+            <h2 id="modal_nome-drink"></h2>
             <hr>
             <div id="modal_info-drink">
                 <img id="modal_indo-drink-foto"src="#" alt="drink">
                 <div id="modal_info-drink-preparo">
                     <li></li>
-                    <p id="modal_info-drink-preparo-instrucao">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores a voluptatem fuga amet molestias.</p>
+                    <p id="modal_info-drink-preparo-instrucao"></p>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="modal-lista" >
+        <div id="modal-lista-conteudo">
+            <ul id="modal-lista-drinks"></ul>
         </div>
     </div>
 
@@ -41,5 +47,5 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<script defer src="./js/autocomplete.js"></script>
+<script defer src="./js/handler.js"></script>
 </html>

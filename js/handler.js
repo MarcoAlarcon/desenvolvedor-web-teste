@@ -13,8 +13,12 @@ $('#buscarDrink').autocomplete({
     select: function (event, ui) {
         // Obtendo as informações completas do drink selecionado
         const selectedDrink = ui.item.drinkDetails;
-        exibirModal(selectedDrink); // Substitua exibirModal pela sua função
+        exibirModal(selectedDrink); 
     }
+});
+
+$(document).ready( () => {
+    obterListaDrinks()
 });
 
 let queue = null;
@@ -31,7 +35,7 @@ $('#buscarDrink').on('input', () => {
 
 // Função para buscar
 async function buscar() {
-    const bebida = document.getElementById("buscarDrink").value;
+    const bebida = document.getElementById("buscarDrink").value; 
 
     // Removendo a fonte atual para evitar duplicatas
     $('#buscarDrink').autocomplete("option", "source", []);
@@ -64,7 +68,6 @@ async function buscar() {
 
 // Função para exibir o modal
 function exibirModal(selectedDrink) {
-    console.log("Detalhes do Drink selecionado:", selectedDrink);
     let ingredients = []
     let ingredientsHtml = ""
     for( let i = 1; i<=15; i++){
@@ -91,5 +94,72 @@ function exibirModal(selectedDrink) {
         )
 
     $('#modal').modal('show')
+}
+
+
+async function obterListaDrinks (){
+    const letrasDoAlfabeto = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    // Função para obter coquetéis para uma letra específica
+    async function obterCoqueteisPorLetra(letra,array) {
+        const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${letra}`;
+
+        // Exibindo a mensagem de loading
+        $('#btn-carta_drinks').css({
+            "display":"flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "15px"
+        })
+        $('#loadingBtn').css({"color": "var(--azul-primario)","display":"block"});
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+    
+            if (data.drinks) {
+                data.drinks.forEach((drink) => {
+                    array.push(drink)
+                })
+
+            } else {
+                console.log(`Nenhum coquetel encontrado para a letra ${letra}.`);
+            }
+        } catch (error) {
+            console.error('Erro na solicitação Ajax:', error);
+        } finally {
+            // Ocultando a mensagem de loading
+            $('#loadingBtn').css({"color": "transparent", "display" : "none"});
+        }
+    }
+    
+    
+    var drinksDisponiveis = []
+    // Iterar sobre as letras do alfabeto e fazer solicitações para cada uma pois nao achei endpoint para todos os drink na API
+    for (const letra of letrasDoAlfabeto) {
+        await obterCoqueteisPorLetra(letra, drinksDisponiveis);
+    }
+    $('#btn-carta_drinks').prop("disabled", false)
+    $('#btn-carta_drinks').on("click", () => {
+        exibirModalLista(drinksDisponiveis)
+    })
+}
+
+function exibirModalLista(drinksDisponiveis){
+    let listaDrinks = ""
+
+    drinksDisponiveis.forEach((drink) => {
+        listaDrinks += `<li id="${drink.idDrink}" class="modal-lista-item">${drink.strDrink}</li>`
+    })
+    $('#modal-lista-drinks').html(listaDrinks)
+    $('#modal-lista').modal('show')
+    $('.modal-lista-item').on("click", (e) => {
+        const id = e.target.id
+        const indiceObjeto = drinksDisponiveis.findIndex( (objeto) =>{
+            return objeto.idDrink === id
+        });
+        const selectedDrink = drinksDisponiveis[indiceObjeto]
+        exibirModal(selectedDrink)
+    })
 }
 
